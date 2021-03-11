@@ -6,25 +6,36 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const express_1 = __importDefault(require("express"));
 const server_1 = __importDefault(require("./classes/server"));
 const router_1 = __importDefault(require("./routes/router"));
+// 1 Importo cors y en la ayuda me dice: npm i --save-dev @types/cors
+// Hago por tanto ese npm
+const cors_1 = __importDefault(require("cors"));
 const server = new server_1.default();
-// 10 Para poder leer los datos que me lleguen de Postman . Seserializarán y genera un json
-// Es importante ponerlo antes de las rutas
 server.app.use(express_1.default.urlencoded({ extended: true }));
 server.app.use(express_1.default.json());
-// 5 La aplicación de express. router lo importo del archivo router que he hecho antes
+// 2 Tengo que habilitar el CORS: https://www.npmjs.com/package/cors
+// para que la app Fronted (Angular) pueda estar corriendo en un servidor y el backend en otro
+// Permito que cualquier persona pueda llamar mis servicios
+server.app.use(cors_1.default({ origin: true, credentials: true }));
 server.app.use('/', router_1.default);
 server.start(() => {
     console.log(`Servidor corriendo en el puerto ${server.port}`);
 });
-// 6 Lo pruebo desde Postman: GET localhost:5000/mensajes
-// 8 Postman: POST localhost:5000/mensajes
-// 9 en POSTMAN quiero haré la prueba de enviar datos. Y yo la debo recibir en router.post...
-// 13 Ahora ya puedo hacer esta petición desde postman
+// 3 Creo .gitignore  No debo subir a gitHub estas 2 carpetas
+//    dist/
+//    node_modules/
+// 4 README.md
 /*
-   POST --   Body  /  x-www-form-urlencoded
-
-   key         Value
-   cuerpo      Hola desde REST-POST
-   de          RestUser
-
-   */ 
+  Reconstruir módulos de Node
+  ```
+  npm install
+  ``
+  Generar el DIST
+  ```
+  tsc -w
+  ``
+  Levantar el servidor, cualquiera de estos dos comandos
+  ```
+  nodemon dist/
+  node dist
+  ```
+*/ 
