@@ -3,7 +3,6 @@ import { SERVER_PORT } from '../global/environment';
 import socketIO from 'socket.io';
 import http from 'http';
 
-// 3 importa todo de esa dirección y le pongo el nombre socket
 import * as socket from '../sockets/socket';
 import { Socket } from 'socket.io';
 
@@ -41,14 +40,13 @@ export default class Server {
       console.log('Escuchando conexiones - sockets');
 
       this.io.on('connection', cliente => {
+
          console.log('Cliente conectado');
 
-         // 1 Detectar desde el servidor cuando se desconecta un cliente
-         // cliente.on('disconnect', () => {
-         //    console.log('Cliente desconectado');
-         // }); 
+         // 2 Que esté pendiente de mensaje.
+         // Recargo el navegador y OK, veo el mensaje en la consola del servidor
+         socket.mensaje( cliente );
 
-         // 4 Llamo a la función desconectar que creé en sockets/socket.ts
          socket.desconectar( cliente );
 
       });

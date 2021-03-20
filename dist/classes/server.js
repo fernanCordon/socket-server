@@ -26,7 +26,6 @@ const express_1 = __importDefault(require("express"));
 const environment_1 = require("../global/environment");
 const socket_io_1 = __importDefault(require("socket.io"));
 const http_1 = __importDefault(require("http"));
-// 3 importa todo de esa dirección y le pongo el nombre socket
 const socket = __importStar(require("../sockets/socket"));
 class Server {
     constructor() {
@@ -43,11 +42,9 @@ class Server {
         console.log('Escuchando conexiones - sockets');
         this.io.on('connection', cliente => {
             console.log('Cliente conectado');
-            // 1 Detectar desde el servidor cuando se desconecta un cliente
-            // cliente.on('disconnect', () => {
-            //    console.log('Cliente desconectado');
-            // }); 
-            // 4 Llamo a la función desconectar que creé en sockets/socket.ts
+            // 2 Que esté pendiente de mensaje.
+            // Recargo el navegador y OK, veo el mensaje en la consola del servidor
+            socket.mensaje(cliente);
             socket.desconectar(cliente);
         });
     }
