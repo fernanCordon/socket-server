@@ -1,3 +1,4 @@
+import SocketIO from "socket.io";
 import { Socket } from "socket.io";
 
 export const desconectar = ( cliente: Socket) => {
@@ -6,10 +7,12 @@ export const desconectar = ( cliente: Socket) => {
      }); 
 }
 
-// 1 Hay que hacer algo para recibir el evento 'mensaje' que viene de Angular
-export const mensaje = ( cliente: Socket) => {
-    // Lo que venga se mete en payload (luego lo haremos mejor lo de la definición del payload)
+export const mensaje = ( cliente: Socket, io: SocketIO.Server ) => {
     cliente.on('mensaje', ( payload: { de: string, cuerpo: string } ) => {
+
         console.log( 'Mensaje recibido', payload );
+        
+        io.emit('mensaje-nuevo', payload)
+
      }); 
 }

@@ -42,9 +42,7 @@ class Server {
         console.log('Escuchando conexiones - sockets');
         this.io.on('connection', cliente => {
             console.log('Cliente conectado');
-            // 2 Que esté pendiente de mensaje.
-            // Recargo el navegador y OK, veo el mensaje en la consola del servidor
-            socket.mensaje(cliente);
+            socket.mensaje(cliente, this.io);
             socket.desconectar(cliente);
         });
     }
