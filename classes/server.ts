@@ -41,17 +41,12 @@ export default class Server {
 
       this.io.on('connection', cliente => {
 
-         // 3 Veo el identificador del cliente
-         // console.log( cliente.id );
-
-         // 5 Conectar cliente (lo implementaré en socket.ts)
          socket.conectarCliente( cliente );
 
          socket.mensaje( cliente, this.io );
          
          socket.desconectar( cliente );
          
-         //  Configurar usuario 
          socket.configurarUsuario( cliente, this.io );
       });
 
