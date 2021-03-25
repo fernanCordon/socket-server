@@ -44,6 +44,8 @@ class Server {
             console.log('Cliente conectado');
             socket.mensaje(cliente, this.io);
             socket.desconectar(cliente);
+            // 3 Configurar usuario. OK Ya funciona
+            socket.configurarUsuario(cliente, this.io);
         });
     }
     start(callback) {

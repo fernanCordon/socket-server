@@ -16,3 +16,19 @@ export const mensaje = ( cliente: Socket, io: SocketIO.Server ) => {
 
      }); 
 }
+
+// 1 Configurar usuario con este método en el que recojo el evento configurar-usuario
+
+export const configurarUsuario = ( cliente: Socket, io: SocketIO.Server ) => {
+    cliente.on('configurar-usuario', ( payload: { nombre: string }, callback: Function ) => {
+
+        console.log( 'Configurando usuario', payload.nombre );
+
+        // 2 Y puedo llamar el callback para retornar este objeto
+        callback({
+            ok: true,
+            mensaje: `Usuario ${ payload.nombre }, configurado`
+        });
+
+     }); 
+}
