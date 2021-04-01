@@ -27,11 +27,7 @@ export class UsuariosLista {
         console.log( this.lista ); 
     }
 
-    // 11 Hago una validación. Si hay un usuario sin nombre, no me vale. Puede haber
-    // alguien que haya abierto la aplicación pero todavía no ha hecho nada
-    // 'sin-nombre' es lo que puse por defecto en el constructor de usuario.ts
     public getLista() {
-        // return this.lista;
         return this.lista.filter( usuario => usuario.nombre !== 'sin-nombre');
     }
 

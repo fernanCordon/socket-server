@@ -43,9 +43,10 @@ class Server {
         this.io.on('connection', cliente => {
             socket.conectarCliente(cliente);
             socket.mensaje(cliente, this.io);
-            // 8 Le meto el io como 2º parámetro
             socket.desconectar(cliente, this.io);
             socket.configurarUsuario(cliente, this.io);
+            // 2 Obtener usuarios activos
+            socket.obtenerUsuarios(cliente, this.io);
         });
     }
     start(callback) {

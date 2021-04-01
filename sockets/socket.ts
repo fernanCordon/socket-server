@@ -14,15 +14,11 @@ export const conectarCliente = ( cliente: Socket ) => {
 
 }
 
-// 7 Tengo que emitir 'usuarios-activos' desde aquí, porque despues de que se elimine el usuario
-// queda un usuario menos
-// Como necesito mandar un mensaje a todo el mundo necesito el io
-// Por eso lo meto como 2º parámetro
+
 export const desconectar = ( cliente: Socket, io: socketIO.Server) => {
     cliente.on('disconnect', () => {
         console.log('Cliente desconectado');
         usuariosConectados.borrarUsuario( cliente.id );
-        // 9 .emit porque es a todo el mundo. Y el payload es usuariosConectados.getLista()
         io.emit('usuarios-activos', usuariosConectados.getLista());
      }); 
 }
@@ -43,13 +39,23 @@ export const configurarUsuario = ( cliente: Socket, io: socketIO.Server ) => {
 
         usuariosConectados.actualizarNombre( cliente.id, payload.nombre );
 
-        // 10 Porque lo tengo que emitir desde aquí también
         io.emit('usuarios-activos', usuariosConectados.getLista());
        
         callback({
             ok: true,
             mensaje: `Usuario ${ payload.nombre }, configurado`
         });
+
+     }); 
+}
+
+// 1 Evento Obtener Usuarios
+export const obtenerUsuarios = ( cliente: Socket, io: socketIO.Server ) => {
+    cliente.on('obtener-usuarios', ()  => {
+        // Como le quiero emitir este mensaje solo a la persona que acaba de entrar al chat
+        // no pongo únicamente  io.emit ya que eso lo emite a todos
+        // Se lo emito solo al id que corresponde al cliente
+        io.to( cliente.id ).emit('usuarios-activos', usuariosConectados.getLista());
 
      }); 
 }
