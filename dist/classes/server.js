@@ -43,7 +43,8 @@ class Server {
         this.io.on('connection', cliente => {
             socket.conectarCliente(cliente);
             socket.mensaje(cliente, this.io);
-            socket.desconectar(cliente);
+            // 8 Le meto el io como 2º parámetro
+            socket.desconectar(cliente, this.io);
             socket.configurarUsuario(cliente, this.io);
         });
     }
