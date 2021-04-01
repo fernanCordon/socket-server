@@ -50,7 +50,6 @@ export default class Server {
          
          socket.configurarUsuario( cliente, this.io );
 
-         // 2 Obtener usuarios activos
          socket.obtenerUsuarios( cliente, this.io );
       
       });

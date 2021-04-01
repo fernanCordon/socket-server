@@ -49,12 +49,8 @@ export const configurarUsuario = ( cliente: Socket, io: socketIO.Server ) => {
      }); 
 }
 
-// 1 Evento Obtener Usuarios
 export const obtenerUsuarios = ( cliente: Socket, io: socketIO.Server ) => {
     cliente.on('obtener-usuarios', ()  => {
-        // Como le quiero emitir este mensaje solo a la persona que acaba de entrar al chat
-        // no pongo únicamente  io.emit ya que eso lo emite a todos
-        // Se lo emito solo al id que corresponde al cliente
         io.to( cliente.id ).emit('usuarios-activos', usuariosConectados.getLista());
 
      }); 
